@@ -1,0 +1,87 @@
+if not game:IsLoaded() then game.Loaded:Wait() end
+
+function missing(t, f, fallback)
+    if type(f) == t then return f end
+    return fallback
+end
+
+local queueteleport =  missing("function", queue_on_teleport or (syn and syn.queue_on_teleport) or (fluxus and fluxus.queue_on_teleport))
+
+
+local TeleportCheck = false
+game.Players.LocalPlayer.OnTeleport:Connect(function(State)
+if TeleportCheck == true then return end
+		TeleportCheck = true
+    	queueteleport("loadstring(game:HttpGet('https://github.com/nguyenquang2006tin-rgb/TheBattleBricksAutoFarm/new/main'))()")
+
+end)
+
+
+local EndEvent = game:GetService("ReplicatedStorage").Events.RemoteEvents.WinOrLose
+
+local InMatch = false
+EndEvent.OnClientEvent:Connect(function() InMatch = false end)
+
+
+function match(wave)
+InMatch = true
+
+
+local Event = game:GetService("ReplicatedStorage").Events.RemoteFunction.StartBattle
+local Result = table.pack(Event:InvokeServer(
+    "Chapter1",
+    wave,
+    2,
+    1,
+    false,
+    {},
+    false,
+    1
+))
+
+local ExpectedResult = table.unpack({
+    true
+})
+
+
+
+while InMatch == true do
+
+local Event = game:GetService("ReplicatedStorage").Events.RemoteFunction.PlayerSpawn
+Event:InvokeServer(
+    "Slot3"
+)
+
+wait(4)
+end
+
+
+
+
+local Event = game:GetService("ReplicatedStorage").Events.RemoteEvents.Cleanup
+Event:FireServer()
+end
+
+
+for i = 1,5 do
+match(10)
+match(5)
+
+end
+end
+
+
+--------------------------
+print("A")
+
+local TeleportService = game:GetService("TeleportService")
+local Players = game.Players
+PlaceId, JobId = game.PlaceId, game.JobId
+
+	if #Players:GetPlayers() <= 1 then
+		Players.LocalPlayer:Kick("\nRejoining...")
+		wait()
+		TeleportService:Teleport(PlaceId, Players.LocalPlayer)
+	else
+		TeleportService:TeleportToPlaceInstance(PlaceId, JobId, Players.LocalPlayer)
+	end
