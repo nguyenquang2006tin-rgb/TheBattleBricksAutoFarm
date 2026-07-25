@@ -12,7 +12,7 @@ local TeleportCheck = false
 game.Players.LocalPlayer.OnTeleport:Connect(function(State)
 if TeleportCheck == true then return end
 		TeleportCheck = true
-    	queueteleport("loadstring(game:HttpGet('https://github.com/nguyenquang2006tin-rgb/TheBattleBricksAutoFarm/new/main'))()")
+    	queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/nguyenquang2006tin-rgb/TheBattleBricksAutoFarm/refs/heads/main/Script'))()")
 
 end)
 
