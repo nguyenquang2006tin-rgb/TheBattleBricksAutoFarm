@@ -1,9 +1,8 @@
 print("LOADING")
-
 if not game:IsLoaded() then game.Loaded:Wait() end
+wait(5)
 
 print("_______LOADED_________")
-
 function missing(t, f, fallback)
     if type(f) == t then return f end
     return fallback
@@ -20,7 +19,6 @@ if TeleportCheck == true then return end
 
 end)
 
---------------------------------------------
 
 local EndEvent = game:GetService("ReplicatedStorage").Events.RemoteEvents.WinOrLose
 
@@ -29,48 +27,49 @@ EndEvent.OnClientEvent:Connect(function() InMatch = false end)
 
 
 function match(wave)
-    InMatch = true
+InMatch = true
 
 
-    local Event = game:GetService("ReplicatedStorage").Events.RemoteFunction.StartBattle
-    local Result = table.pack(Event:InvokeServer(
-        "Chapter1",
-        wave,
-        2,
-        1,
-        false,
-        {},
-        false,
-        1
-    ))
+local Event = game:GetService("ReplicatedStorage").Events.RemoteFunction.StartBattle
+local Result = table.pack(Event:InvokeServer(
+    "Chapter1",
+    wave,
+    2,
+    1,
+    false,
+    {},
+    false,
+    1
+))
 
-    local ExpectedResult = table.unpack({
-        true
-    })
-
-
-
-    while InMatch == true do
-
-    local Event = game:GetService("ReplicatedStorage").Events.RemoteFunction.PlayerSpawn
-    Event:InvokeServer(
-        "Slot3"
-    )
-
-    wait(4)
-    end
+local ExpectedResult = table.unpack({
+    true
+})
 
 
 
+while InMatch == true do
 
-    local Event = game:GetService("ReplicatedStorage").Events.RemoteEvents.Cleanup
-    Event:FireServer()
+local Event = game:GetService("ReplicatedStorage").Events.RemoteFunction.PlayerSpawn
+Event:InvokeServer(
+    "Slot3"
+)
+
+wait(4)
 end
 
 
-for i = 1,3 do
-    match(10)
-    match(5)
+
+
+local Event = game:GetService("ReplicatedStorage").Events.RemoteEvents.Cleanup
+Event:FireServer()
+end
+
+
+for i = 1,5 do
+match(10)
+match(5)
+
 end
 
 
