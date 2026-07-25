@@ -1,6 +1,6 @@
 print("LOADING")
 if not game:IsLoaded() then game.Loaded:Wait() end
-wait(5)
+wait(10)
 
 print("_______LOADED_________")
 function missing(t, f, fallback)
