@@ -1,5 +1,6 @@
+print("LOADING")
 if not game:IsLoaded() then game.Loaded:Wait() end
-
+print("_______LOADED_________")
 function missing(t, f, fallback)
     if type(f) == t then return f end
     return fallback
@@ -68,7 +69,7 @@ match(10)
 match(5)
 
 end
-end
+
 
 
 --------------------------
